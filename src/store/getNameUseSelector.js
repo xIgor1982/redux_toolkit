@@ -1,0 +1,1 @@
+export const getUseSelectorTodos = (store) => store.app.todos

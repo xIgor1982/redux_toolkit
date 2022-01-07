@@ -1,31 +1,35 @@
 import {Checkbox, Grid, Paper, Typography} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {removeTodo, toggleTodoComplete} from "../store/todoReducer/todoSlice";
+
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 
-const label = {inputProps: {'aria-label': 'Checkbox demo'}};
+const TodoItem = ({id, text, completed}) => {
+    const dispatch = useDispatch()
 
-const TodoItem = ({id, text, completed, toggleTodoComplete, removeTodo}) => {
+    const handleOnCheckbox = () => {
+        dispatch(toggleTodoComplete({id}))
+    }
+
+    // const handleRemoveTodo = () => {
+    //     dispatch(removeTodo({id}))
+    // }
+
     return (
         <Paper elevation={3} key={id} sx={{width: 450, margin: '10px auto'}}>
-            <Grid
-                container
+            <Grid container
                 alignItems='center'
                 sx={{margin: '0 auto'}}
             >
-                <Grid
-                    item xs={2}
-                >
+                <Grid item xs={2}>
                     <Checkbox
-                        {...label}
                         checked={completed}
-                        onChange={() => toggleTodoComplete(id)}
+                        onChange={handleOnCheckbox}
                         className='checkbox_on'
                     />
                 </Grid>
-                <Grid
-                    item
-                    xs={8}
-                >
+                <Grid item xs={8}>
                     <Typography
                         variant="h6"
                         gutterBottom
@@ -35,13 +39,11 @@ const TodoItem = ({id, text, completed, toggleTodoComplete, removeTodo}) => {
                         {text}
                     </Typography>
                 </Grid>
-                <Grid
-                    item xs={2}
-                >
+                <Grid item xs={2}>
                     <IconButton
                         aria-label="Clear"
                         size="small"
-                        onClick={() => removeTodo(id)}
+                        onClick={() => dispatch(removeTodo({id}))}
                     >
                         <ClearIcon
                             fontSize="small"

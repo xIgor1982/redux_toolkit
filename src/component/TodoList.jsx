@@ -1,15 +1,10 @@
-import {Checkbox, Grid, Paper, Typography} from "@mui/material";
 import TodoItem from "./TodoItem";
+import {useSelector} from 'react-redux'
+import {getUseSelectorTodos} from "../store/getNameUseSelector";
 
-const TodoList = ({todos, toggleTodoComplete, removeTodo}) => {
-    return todos.map(todo =>
-        <TodoItem
-            key={todo.id}
-            {...todo}
-            toggleTodoComplete={toggleTodoComplete}
-            removeTodo={removeTodo}
-        />
-    )
+const TodoList = () => {
+    const todos = useSelector(getUseSelectorTodos)
+    return todos.map(todo => <TodoItem key={todo.id} {...todo} /> )
 }
 
 export default TodoList
