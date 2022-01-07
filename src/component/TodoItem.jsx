@@ -1,10 +1,12 @@
 import {Checkbox, Grid, Paper, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
+import {useDispatch} from "react-redux";
+import {removeTodo, toggleTodoComplete} from "../store/todoSlice";
 
-const label = {inputProps: {'aria-label': 'Checkbox demo'}};
+const TodoItem = ({id, text, completed}) => {
+    const dispatch = useDispatch()
 
-const TodoItem = ({id, text, completed, toggleTodoComplete, removeTodo}) => {
     return (
         <Paper elevation={3} key={id} sx={{width: 450, margin: '10px auto'}}>
             <Grid
@@ -16,9 +18,8 @@ const TodoItem = ({id, text, completed, toggleTodoComplete, removeTodo}) => {
                     item xs={2}
                 >
                     <Checkbox
-                        {...label}
                         checked={completed}
-                        onChange={() => toggleTodoComplete(id)}
+                        onChange={() => dispatch(toggleTodoComplete({id}))}
                         className='checkbox_on'
                     />
                 </Grid>
@@ -41,7 +42,7 @@ const TodoItem = ({id, text, completed, toggleTodoComplete, removeTodo}) => {
                     <IconButton
                         aria-label="Clear"
                         size="small"
-                        onClick={() => removeTodo(id)}
+                        onClick={() => dispatch(removeTodo({id}))}
                     >
                         <ClearIcon
                             fontSize="small"

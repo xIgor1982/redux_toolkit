@@ -14,7 +14,8 @@ const InputField = ({text, handleInput, handleSubmit, nameBtn}) => {
                     id="outlined-basic"
                     label="Todo"
                     variant="outlined"
-                    value={text} onChange={(e) => handleInput(e.target.value)}
+                    value={text}
+                    onChange={(e) => handleInput(e.target.value)}
                     sx={{width: '100%'}}
                 />
             </Grid>
